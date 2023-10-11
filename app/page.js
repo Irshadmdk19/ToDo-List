@@ -16,17 +16,28 @@ const page = () => {
     setmainTask([...mainTask,{title,desc}])
 
   }
+
+  const deleteHandler=(index)=>{
+    let copyTask=[...mainTask]
+    copyTask.splice(index,1)
+    setmainTask(copyTask)
+
+  }
   let renderTask=<h2>No Task is available</h2>
     if(mainTask.length>0){
       renderTask=mainTask.map((task,index)=>{
         return(
-          <li className='flex items-center justify-between'>
+          <li key={index} className='flex items-center justify-between mb-8'>
             <div className='flex items-center justify-between mb-5 w-2/3'>
              <h5 className='text-2xl font-semibold'>{task.title}</h5>
-             <h6 className='text-xl font-semibold' >{task.desc}</h6>
+             <h6 className='text-lg font-semibold' >{task.desc}</h6>
             </div>
 
-              <button className='bg-red-600 text-white px-4 py-2 rounded font-bold'>Delete</button>
+              <button className='bg-red-600 text-white px-4 py-2 rounded font-bold'
+              onClick={()=>{
+                // if its called Directly, i.e without arrow function. it will not work
+                deleteHandler(index)
+              }} >Delete</button>
 
           </li>
         )
